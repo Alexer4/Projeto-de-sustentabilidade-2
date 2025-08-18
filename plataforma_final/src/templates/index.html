@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row align-items-center">
+        <div class="col-lg-6">
+            <h1 class="display-4 fw-bold text-success">Compartilhe. Reutilize. Transforme.</h1>
+            <p class="lead my-4">
+                Bem-vindo à EcoShare, a plataforma que conecta estudantes para compartilhar materiais escolares, 
+                reduzir o desperdício e promover a sustentabilidade na comunidade escolar.
+            </p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('all_materials') }}" class="btn btn-success btn-lg px-4 me-md-2">Ver Materiais</a>
+                    <a href="{{ url_for('new_material') }}" class="btn btn-outline-success btn-lg px-4">Compartilhar Material</a>
+                {% else %}
+                    <a href="{{ url_for('register') }}" class="btn btn-success btn-lg px-4 me-md-2">Cadastre-se</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-success btn-lg px-4">Entrar</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-6 mt-5 mt-lg-0">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b" class="img-fluid rounded shadow" alt="Estudantes compartilhando materiais">
+        </div>
+    </div>
+
+    <div class="row mt-5 pt-5">
+        <div class="col-12 text-center mb-4">
+            <h2 class="fw-bold">Como a EcoShare funciona?</h2>
+            <p class="lead">Três passos simples para compartilhar e reutilizar materiais escolares</p>
+        </div>
+    </div>
+
+    <div class="row g-4 py-3">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center p-4">
+                    <div class="display-4 text-success mb-3">
+                        <i class="bi bi-box-seam"></i>
+                    </div>
+                    <h3 class="card-title h4">1. Cadastre seus materiais</h3>
+                    <p class="card-text">Fotografe e cadastre materiais escolares que você não utiliza mais e que estão em bom estado.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center p-4">
+                    <div class="display-4 text-success mb-3">
+                        <i class="bi bi-chat-dots"></i>
+                    </div>
+                    <h3 class="card-title h4">2. Conecte-se</h3>
+                    <p class="card-text">Encontre materiais disponíveis ou receba solicitações para os seus itens cadastrados.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body text-center p-4">
+                    <div class="display-4 text-success mb-3">
+                        <i class="bi bi-arrow-repeat"></i>
+                    </div>
+                    <h3 class="card-title h4">3. Compartilhe</h3>
+                    <p class="card-text">Combine a entrega do material e ajude a reduzir o desperdício na comunidade escolar.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5 pt-5">
+        <div class="col-12 text-center mb-4">
+            <h2 class="fw-bold">Impacto Ambiental</h2>
+            <p class="lead">Cada material reutilizado é um passo para um futuro mais sustentável</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 bg-light border-0">
+                <div class="card-body text-center p-4">
+                    <div class="display-4 text-success mb-3">
+                        <i class="bi bi-tree"></i>
+                    </div>
+                    <h3 class="h5">Redução de Resíduos</h3>
+                    <p>Menos materiais descartados significa menos lixo em aterros sanitários.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 bg-light border-0">
+                <div class="card-body text-center p-4">
+                    <div class="display-4 text-success mb-3">
+                        <i class="bi bi-water"></i>
+                    </div>
+                    <h3 class="h5">Economia de Recursos</h3>
+                    <p>Cada caderno reutilizado economiza água e evita o desmatamento.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 bg-light border-0">
+                <div class="card-body text-center p-4">
+                    <div class="display-4 text-success mb-3">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <h3 class="h5">Comunidade Consciente</h3>
+                    <p>Promovemos a cultura de sustentabilidade entre estudantes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="{{ url_for('register') }}" class="btn btn-success btn-lg">Junte-se a nós hoje!</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body p-4">
+                    <h2 class="mb-4">{{ title }}</h2>
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nome do Material</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ material.name if material else '' }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Categoria</label>
+                            <select class="form-select" id="category" name="category" required>
+                                <option value="" disabled {% if not material %}selected{% endif %}>Selecione uma categoria</option>
+                                <option value="Livros" {% if material and material.category == 'Livros' %}selected{% endif %}>Livros</option>
+                                <option value="Material Escolar" {% if material and material.category == 'Material Escolar' %}selected{% endif %}>Material Escolar</option>
+                                <option value="Eletrônicos" {% if material and material.category == 'Eletrônicos' %}selected{% endif %}>Eletrônicos</option>
+                                <option value="Uniformes" {% if material and material.category == 'Uniformes' %}selected{% endif %}>Uniformes</option>
+                                <option value="Outros" {% if material and material.category == 'Outros' %}selected{% endif %}>Outros</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="condition" class="form-label">Condição</label>
+                            <select class="form-select" id="condition" name="condition" required>
+                                <option value="" disabled {% if not material %}selected{% endif %}>Selecione a condição</option>
+                                <option value="Novo" {% if material and material.condition == 'Novo' %}selected{% endif %}>Novo</option>
+                                <option value="Excelente" {% if material and material.condition == 'Excelente' %}selected{% endif %}>Excelente</option>
+                                <option value="Bom" {% if material and material.condition == 'Bom' %}selected{% endif %}>Bom</option>
+                                <option value="Regular" {% if material and material.condition == 'Regular' %}selected{% endif %}>Regular</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="description" name="description" rows="4" required>{{ material.description if material else '' }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image_url" class="form-label">URL da Imagem (opcional)</label>
+                            <input type="url" class="form-control" id="image_url" name="image_url" value="{{ material.image_url if material else '' }}">
+                            <div class="form-text">Insira o link de uma imagem online que represente o material.</div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('my_materials') }}" class="btn btn-outline-secondary">Cancelar</a>
+                            <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

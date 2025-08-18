@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="mb-4">Materiais Disponíveis</h1>
+            
+            <div class="row g-4">
+                {% if materials %}
+                    {% for material in materials %}
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm">
+                                {% if material.image_url %}
+                                    <img src="{{ material.image_url }}" class="card-img-top" alt="{{ material.name }}" style="height: 180px; object-fit: cover;">
+                                {% else %}
+                                    <div class="bg-light text-center py-5">
+                                        <i class="bi bi-image text-secondary" style="font-size: 3rem;"></i>
+                                    </div>
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ material.name }}</h5>
+                                    <p class="card-text text-muted">{{ material.category }}</p>
+                                    <p class="card-text">{{ material.description|truncate(100) }}</p>
+                                </div>
+                                <div class="card-footer bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">Condição: {{ material.condition }}</small>
+                                        <a href="{{ url_for('material_detail', id=material.id) }}" class="btn btn-sm btn-outline-success">Ver detalhes</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-12">
+                        <div class="alert alert-info">
+                            Nenhum material disponível no momento. Seja o primeiro a compartilhar!
+                        </div>
+                        {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('new_material') }}" class="btn btn-success">Cadastrar Material</a>
+                        {% else %}
+                            <a href="{{ url_for('login') }}" class="btn btn-success">Entrar para Cadastrar Material</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="col-md-4 mt-5 mt-md-0">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Filtrar Materiais</h5>
+                    <form>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Categoria</label>
+                            <select class="form-select" id="category" name="category">
+                                <option value="">Todas as categorias</option>
+                                <option value="Livros">Livros</option>
+                                <option value="Material Escolar">Material Escolar</option>
+                                <option value="Eletrônicos">Eletrônicos</option>
+                                <option value="Uniformes">Uniformes</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="condition" class="form-label">Condição</label>
+                            <select class="form-select" id="condition" name="condition">
+                                <option value="">Todas as condições</option>
+                                <option value="Novo">Novo</option>
+                                <option value="Excelente">Excelente</option>
+                                <option value="Bom">Bom</option>
+                                <option value="Regular">Regular</option>
+                            </select>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Filtrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Tem materiais para compartilhar?</h5>
+                    <p class="card-text">Ajude outros estudantes e contribua para um mundo mais sustentável compartilhando seus materiais escolares não utilizados.</p>
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('new_material') }}" class="btn btn-success w-100">Cadastrar Material</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="btn btn-success w-100">Entrar para Cadastrar</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
