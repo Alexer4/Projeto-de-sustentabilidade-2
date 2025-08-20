@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <h1 class="text-center mb-5">Como Funciona a EcoShare</h1>
+            
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="card h-100 text-center shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="bi bi-box-seam text-success" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title">1. Cadastre seus materiais</h5>
+                            <p class="card-text">Fotografe e cadastre materiais escolares que você não utiliza mais e que estão em bom estado.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card h-100 text-center shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="bi bi-people text-success" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title">2. Conecte-se</h5>
+                            <p class="card-text">Encontre materiais disponíveis ou receba solicitações para os seus itens cadastrados.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card h-100 text-center shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <i class="bi bi-arrow-repeat text-success" style="font-size: 3rem;"></i>
+                            </div>
+                            <h5 class="card-title">3. Compartilhe</h5>
+                            <p class="card-text">Combine a entrega do material e ajude a reduzir o desperdício na comunidade escolar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('all_materials') }}" class="btn btn-success btn-lg me-3">Ver Materiais</a>
+                    <a href="{{ url_for('new_material') }}" class="btn btn-outline-success btn-lg">Cadastrar Material</a>
+                {% else %}
+                    <a href="{{ url_for('register') }}" class="btn btn-success btn-lg me-3">Cadastre-se</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-success btn-lg">Fazer Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
