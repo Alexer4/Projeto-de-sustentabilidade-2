@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="mb-4">Meus Materiais</h1>
+            
+            <div class="row g-4">
+                {% if materials %}
+                    {% for material in materials %}
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm">
+                                {% if material.image_url %}
+                                    <img src="{{ material.image_url }}" class="card-img-top" alt="{{ material.name }}" style="height: 180px; object-fit: cover;">
+                                {% else %}
+                                    <div class="bg-light text-center py-5">
+                                        <i class="bi bi-image text-secondary" style="font-size: 3rem;"></i>
+                                    </div>
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ material.name }}</h5>
+                                    <p class="card-text text-muted">{{ material.category }}</p>
+                                    <p class="card-text">{{ material.description|truncate(100) }}</p>
+                                    <div class="mb-2">
+                                        <span class="badge bg-{{ 'success' if material.status == 'disponível' else 'warning' if material.status == 'reservado' else 'secondary' }}">
+                                            {{ material.status|title }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-white">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <small class="text-muted">{{ material.condition }}</small>
+                                        <div>
+                                            <a href="{{ url_for('material_detail', id=material.id) }}" class="btn btn-sm btn-outline-primary">Ver</a>
+                                            <a href="{{ url_for('edit_material', id=material.id) }}" class="btn btn-sm btn-outline-secondary">Editar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-12">
+                        <div class="alert alert-info text-center">
+                            <h4>Você ainda não cadastrou nenhum material</h4>
+                            <p>Comece compartilhando materiais escolares que você não utiliza mais!</p>
+                            <a href="{{ url_for('new_material') }}" class="btn btn-success">Cadastrar Primeiro Material</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="col-md-4 mt-5 mt-md-0">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Ações Rápidas</h5>
+                    <div class="d-grid gap-2">
+                        <a href="{{ url_for('new_material') }}" class="btn btn-success">Cadastrar Novo Material</a>
+                        <a href="{{ url_for('all_materials') }}" class="btn btn-outline-success">Ver Todos os Materiais</a>
+                        <a href="{{ url_for('my_requests') }}" class="btn btn-outline-primary">Minhas Solicitações</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card shadow-sm mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Estatísticas</h5>
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <h3 class="text-success">{{ materials|length }}</h3>
+                            <small class="text-muted">Materiais Cadastrados</small>
+                        </div>
+                        <div class="col-6">
+                            <h3 class="text-primary">{{ materials|selectattr("status", "equalto", "disponível")|list|length }}</h3>
+                            <small class="text-muted">Disponíveis</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
