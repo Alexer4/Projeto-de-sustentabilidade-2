@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="mb-4">Meu Perfil</h1>
+            
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Informações do Usuário</h5>
+                    <p><strong>Nome de Usuário:</strong> {{ current_user.username }}</p>
+                    <p><strong>Email:</strong> {{ current_user.email }}</p>
+                    <p><strong>Escola:</strong> {{ current_user.escola }}</p>
+                    <p><strong>Membro desde:</strong> {{ current_user.registration_date.strftime('%d/%m/%Y') }}</p>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Ações Rápidas</h5>
+                    <div class="d-grid gap-2">
+                        <a href="{{ url_for("my_materials") }}" class="btn btn-success">Meus Materiais</a>
+                        <a href="{{ url_for("my_requests") }}" class="btn btn-primary">Minhas Solicitações</a>
+                        <a href="{{ url_for("logout") }}" class="btn btn-danger">Sair</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
