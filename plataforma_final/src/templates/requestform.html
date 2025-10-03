@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="mb-4">Solicitar Material: {{ material.name }}</h1>
+            
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Detalhes do Material</h5>
+                    <p class="card-text"><strong>Nome:</strong> {{ material.name }}</p>
+                    <p class="card-text"><strong>Descrição:</strong> {{ material.description }}</p>
+                    <p class="card-text"><strong>Categoria:</strong> {{ material.category }}</p>
+                    <p class="card-text"><strong>Condição:</strong> {{ material.condition }}</p>
+                    <p class="card-text"><strong>Doador:</strong> {{ material.owner.username }}</p>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Sua Mensagem para o Doador</h5>
+                    <form method="POST" action="{{ url_for("request_material", id=material.id) }}">
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Mensagem</label>
+                            <textarea class="form-control" id="message" name="message" rows="5" required placeholder="Explique por que você precisa deste material e como ele será útil."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Enviar Solicitação</button>
+                        <a href="{{ url_for("material_detail", id=material.id) }}" class="btn btn-secondary">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
